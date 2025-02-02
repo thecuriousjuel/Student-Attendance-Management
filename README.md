@@ -20,3 +20,9 @@
 4. The Student should be able to logout.
 
 Note: Consolidated attendance is the attendance percentage of every month and year.
+
+
+## Technologies
+1. Frontend - HTML, CSS and JavaScript
+2. Backend - Python, Flask
+3. Database - SQLite
