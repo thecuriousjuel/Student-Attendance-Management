@@ -1,3 +1,4 @@
+import { createAttendanceSheet } from "./components/createAttendanceSheet.js";
 import { createLoginPage } from "./components/createLoginPage.js";
 import { createRegisterPage } from "./components/createRegisterPage.js";
 
@@ -42,7 +43,8 @@ function loginButtonAction(event)
     {
         // Example credentials
         errorMessage.textContent = ""; // Clear any previous errors
-        alert("Login successful!"); // Or redirect to another page: window.location.href = "welcome.html";
+        const attendanceSheet = createAttendanceSheet(["Abc", "DEF"])
+        mainContainer.innerHTML = attendanceSheet;
     } else
     {
         errorMessage.textContent = "Invalid username or password.";

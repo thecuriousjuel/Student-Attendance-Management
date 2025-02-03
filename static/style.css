@@ -68,3 +68,33 @@ button {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 300px; /* Set a fixed width for better layout */
 }
+
+nav {
+  background-color: #333; /* Dark background color */
+  color: white; /* Text color */
+  padding: 10px; /* Padding around the navbar */
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Distribute space between elements */
+  align-items: center; /* Vertically align items */
+}
+
+.logo {
+  font-weight: bold; /* Make the logo bolder */
+  font-size: 1.2em; /* Slightly larger font size for the logo */
+}
+
+ul {
+  list-style: none; /* Remove bullet points from the list */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Arrange list items horizontally */
+}
+
+li {
+  margin-left: 20px; /* Space between list items */
+}
+
+a {
+  color: white; /* Link color */
+  text-decoration: none; /* Remove underlines from links */
+}
