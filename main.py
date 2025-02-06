@@ -7,13 +7,21 @@ from flask import jsonify
 LOCALHOST = "127.0.0.1"
 PORT = 5000
 
+isAuthenticated = False
+
 # Creating the flask app
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def main():
-    return render_template('index.html')
+    if not isAuthenticated:
+        return render_template('index.html')
+    return render_template('dashboard.html')
+
+
+def login():
+    pass
 
 
 # Starting the application

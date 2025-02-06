@@ -2,7 +2,7 @@ import { createAttendanceSheet } from "./components/createAttendanceSheet.js";
 import { createLoginPage } from "./components/createLoginPage.js";
 import { createRegisterPage } from "./components/createRegisterPage.js";
 
-let mainContainer = document.querySelector(".main-container");
+let container;
 let isLoggedIn = false;
 
 // Event Listeners
@@ -22,9 +22,17 @@ async function fetchFromURL(url, request)
     return data.response
 }
 
+function setStatusMessage(message){
+    const statusMessage = document.getElementById("statusMessage");
+    statusMessage.textContent = message;
+}
+
+function setContainerContent(htmlText){
+    container.innerHTML = htmlText;
+}
+
 function loginButtonAction(event)
 {
-    const errorMessage = document.getElementById("errorMessage");
     event.preventDefault(); // Prevent form from actually submitting
 
     const username = document.getElementById("username").value;
@@ -32,7 +40,7 @@ function loginButtonAction(event)
 
     if (username === "" || password === "")
     {
-        errorMessage.textContent = "Username and password are required.";
+        setStatusMessage("Username and password are required.");
         return;
     }
 
@@ -42,37 +50,36 @@ function loginButtonAction(event)
     if (username === "test" && password === "test")
     {
         // Example credentials
-        errorMessage.textContent = ""; // Clear any previous errors
+        setStatusMessage(""); // Clear any previous errors
         const attendanceSheet = createAttendanceSheet(["Abc", "DEF"])
-        mainContainer.innerHTML = attendanceSheet;
+        setContainerContent(attendanceSheet);
     } else
     {
-        errorMessage.textContent = "Invalid username or password.";
+        setStatusMessage("Invalid username or password.");
     }
 }
 
+
+
 function registerButtonAction(event)
 {
-    const errorMessage = document.getElementById("errorMessage");
-    event.preventDefault();
-
+    event.preventDefault(); 
+0 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
     const role = document.querySelector('input[name="role"]:checked').value; // Get selected role
 
-    errorMessage.textContent = ""; // Clear any previous errors
-
     if (password !== confirmPassword)
     {
-        errorMessage.textContent = "Passwords do not match.";
+        setStatusMessage("Passwords do not match.");
         return;
     }
 
     // Basic validation (you would add more robust checks)
     if (username === "" || password === "" || confirmPassword === "")
     {
-        errorMessage.textContent = "All fields are required.";
+        setStatusMessage("All fields are required.");
         return;
     }
 
@@ -82,7 +89,7 @@ function registerButtonAction(event)
     // Optionally redirect: window.location.href = "login.html";
 }
 
-function loginPageFunction()
+function addFunctionstologinPage()
 {
     const loginForm = document.getElementById("loginForm");
     loginForm.addEventListener("submit", (event) => loginButtonAction(event));
@@ -93,8 +100,9 @@ function loginPageFunction()
 
 function loadRegisterPage(event)
 {
+    setStatusMessage(""); // Clear any previous errors
     const registerPage = createRegisterPage();
-    mainContainer.innerHTML = registerPage;
+    setContainerContent(registerPage);
 
     const registerForm = document.getElementById("registerForm");
     registerForm.addEventListener("submit", (event) => registerButtonAction(event));
@@ -102,7 +110,8 @@ function loadRegisterPage(event)
 
 function loadMainPage()
 {
+    container = document.querySelector(".container");
     const loginPage = createLoginPage();
-    mainContainer.innerHTML = loginPage;
-    loginPageFunction()
+    setContainerContent(loginPage);
+    addFunctionstologinPage()
 }

@@ -7,13 +7,19 @@ body {
   background-color: #f0f0f0;
 }
 
-.container { /* Common container for both login and register */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+/* .container { 
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Consistent width */
-}
+    width: 300px; 
+} */
 
 label {
   display: block;
@@ -61,7 +67,7 @@ button {
   margin-top: 10px;
 }
 
-.register-container {
+.register-container, .login-container {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
