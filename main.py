@@ -11,14 +11,13 @@ isAuthenticated = False
 
 # Creating the flask app
 app = Flask(__name__)
-
+  
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    global isAuthenticated
-    if not isAuthenticated:
-        return render_template('index.html')
-    return render_template('dashboard.html')
+    # if isAuthenticated:
+    #     return render_template('home.html')
+    return render_template('index.html')
 
 
 @app.route('/login', methods=['POST'])
@@ -30,7 +29,7 @@ def login():
     print(username, password)
     if username == 'test' and password == 'test':
         isAuthenticated = True
-        return jsonify({'authenticated': True})
+        return jsonify({'authenticated': True}), 200
     return jsonify({'authenticated': False}), 401
 
 # Starting the application

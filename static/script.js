@@ -4,10 +4,10 @@ import { createRegisterPage } from "./components/createRegisterPage.js";
 
 let container;
 let isLoggedIn = false;
+let userDetail = {};
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", loadMainPage);
-
 
 // This function calls the API endpoints and retrives the response,
 // formats it and returns to the calling function.
@@ -15,10 +15,11 @@ async function fetchFromURL(url, request) {
     console.log("fetchFromURL called with url: ", url, " and request: ", request);
     const response = await fetch(url, request);
     const data = await response.json();
+    // console.log("Data received: ", data);
     if (data.status < 200 || data.status >= 400) {
-        throw new Error(data.response)
+        throw new Error(data)
     }
-    return data.response
+    return data;
 }
 
 function setStatusMessage(message) {
@@ -41,12 +42,7 @@ function loginButtonAction(event) {
         return;
     }
 
-    // In a real application, you would send this data to a server
-    // for authentication.  Here, we'll just simulate a successful login
-    // for demonstration purposes.
-
-
-    const response = fetchFromURL('/login', {
+    fetchFromURL('/login', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -54,15 +50,19 @@ function loginButtonAction(event) {
         body: JSON.stringify({
             username, password
         })
-    });
-
+    }).then((data) => {
+        isLoggedIn = true;
+        if (data.authenticated) {
+            loadDashboard(data.role);
+        } else {
+            setStatusMessage('Invalid credentials');
+        }
+    })
 }
-
-
 
 function registerButtonAction(event) {
     event.preventDefault();
-    0
+
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
@@ -104,7 +104,11 @@ function loadRegisterPage(event) {
 
 function loadMainPage() {
     container = document.querySelector(".container");
-    const loginPage = createLoginPage();
-    setContainerContent(loginPage);
-    addFunctionstologinPage()
+    if (isLoggedIn) {
+        loadDashboard();
+    } else {
+        const loginPage = createLoginPage();
+        setContainerContent(loginPage);
+        addFunctionstologinPage()
+    }
 }
